@@ -1,0 +1,7 @@
+# See man 5 aliases for format
+replies: discourse
+general: discourse
+projects: discourse
+space: discourse
+staff: discourse
+members: discourse
