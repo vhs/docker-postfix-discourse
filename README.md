@@ -4,6 +4,8 @@ This is a Dockerfile for a basic postfix/courier server. Currently it's just for
 
 ## Setup
 
+Generate your DKIM key and place the private in ./opendkim.private
+
 Assuming docker is installed:
 
 ```
