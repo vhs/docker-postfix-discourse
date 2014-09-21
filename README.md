@@ -17,6 +17,6 @@ This will download and build the image to run, if you make any changes then re-r
 ## Starting
 
 ```
-./new-instance.sh <password>
+./start.sh <password>
 ```
-This will create an instance and run it. The password is for the discourse account used for pop3 access. If changes are made to the instance with build you will have to remove it using docker rm <containerId>
+This will create an instance and run it. The password is for the discourse account used for pop3 access. 

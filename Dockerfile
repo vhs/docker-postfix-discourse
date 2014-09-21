@@ -27,6 +27,7 @@ run apt-get install -y supervisor
 # Configuration
 COPY opendkim.private /etc/opendkim.private
 COPY assets/opendkim.trusted /etc/opendkim.trusted
+run chmod 600 /etc/opendkim.private
 run postconf -e "home_mailbox = Maildir/"
 run postconf -e "milter_default_action = accept"
 run postconf -e "smtpd_milters = inet:127.0.0.1:8891"
