@@ -6,21 +6,18 @@ if [ ! -e $DIR/config ]; then
 fi
 
 source $DIR/config
-echo Using domain: $DOMAIN with selector: $DKIM_SELECTOR 
 echo "Building"
 docker build -t hackspace/discourse_mail $DIR
 
 echo "Stopping existing instance"
-docker stop discourse_mail
+docker stop discourse_mail_test
 
 echo "Removing old instance"
-docker rm discourse_mail
+docker rm discourse_mail_test
 
 echo "Starting"
-docker run -e "domain=$DOMAIN" -e "selector=$DKIM_SELECTOR" -e "passwd=$POP3_PASS" -d \
-   -p 110:110 \
-   -p 25:25 \
+docker run -e "domain=$DOMAIN" -e "selector=$DKIM_SELECTOR" -e "passwd=$POP3_PASS" -i -t \
    -v $DIR/log:/var/log/supervisor \
    -v $DIR/mail:/var/mail \
    -v $DIR/home:/home \
-   --name discourse_mail hackspace/discourse_mail
+   --name discourse_mail_test hackspace/discourse_mail /bin/bash
