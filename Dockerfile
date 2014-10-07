@@ -28,8 +28,11 @@ run apt-get install -y supervisor
 COPY opendkim.private /etc/opendkim.private
 COPY assets/opendkim.trusted /etc/opendkim.trusted
 COPY assets/custom_replies /etc/postfix/custom_replies
+COPY assets/virtual_addresses /etc/postfix/virtual_addresses
 run chmod 600 /etc/opendkim.private
 run postconf -e "home_mailbox = Maildir/"
+run postmap /etc/postfix/virtual_addresses
+run postconf -e "virtual_maps = hash:/etc/postfix/virtual_addresses"
 run postconf -e "milter_default_action = accept"
 run postconf -e "smtpd_milters = inet:127.0.0.1:8891"
 run postconf -e "non_smtpd_milters = inet:127.0.0.1:8891"
