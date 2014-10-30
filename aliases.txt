@@ -5,3 +5,4 @@ projects: discourse
 space: discourse
 staff: discourse
 members: discourse
+arc: discourse
