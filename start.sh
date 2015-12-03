@@ -23,4 +23,5 @@ docker run -e "domain=$DOMAIN" -e "selector=$DKIM_SELECTOR" -e "passwd=$POP3_PAS
    -v $DIR/log:/var/log/supervisor \
    -v $DIR/mail:/var/mail \
    -v $DIR/home:/home \
+   --restart=always \
    --name discourse_mail hackspace/discourse_mail
