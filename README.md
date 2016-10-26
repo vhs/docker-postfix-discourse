@@ -1,4 +1,4 @@
-# talk.hackspace.ca Postfix Docker image
+# talk.vanhack.ca Postfix Docker image
 
 This is a Dockerfile for a basic postfix/courier server. Currently it's just for incoming emails and just has a single mailbox.
 
