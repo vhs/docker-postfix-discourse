@@ -38,10 +38,10 @@ run postconf -e "smtpd_milters = inet:127.0.0.1:8891"
 run postconf -e "non_smtpd_milters = inet:127.0.0.1:8891"
 run postconf -e "mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 172.16.0.0/12"
 run postconf -e "smtpd_recipient_restrictions = check_recipient_access regexp:/etc/postfix/custom_replies"
-run postconf -e "myhostname = talk.hackspace.ca"
-run postconf -e "mydomain = talk.hackspace.ca"
-run postconf -e "myorigin = talk.hackspace.ca"
-run postconf -e "mydestination = talk.hackspace.ca"
+run postconf -e "myhostname = talk.vanhack.ca"
+run postconf -e "mydomain = talk.vanhack.ca"
+run postconf -e "myorigin = talk.vanhack.ca"
+run postconf -e "mydestination = talk.vanhack.ca"
 run echo "KeyFile /etc/opendkim.private" >> /etc/opendkim.conf
 run echo "Canonicalization relaxed/relaxed" >> /etc/opendkim.conf
 run echo "InternalHosts /etc/opendkim.trusted" >> /etc/opendkim.conf

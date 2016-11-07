@@ -1,4 +1,4 @@
 #Sample config for container
 POP3_PASS=somepass #Password to use for the discourse user/pop3 account
-DOMAIN=talk.hackspace.ca #Primary domain
+DOMAIN=talk.vanhack.ca #Primary domain
 DKIM_SELECTOR=default #DKIM Selector
