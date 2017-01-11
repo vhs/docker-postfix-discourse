@@ -24,35 +24,41 @@ run mkdir /etc/opendkim/
 # Install Supervisor
 run apt-get install -y supervisor
 
-# Configuration
-COPY opendkim.private /etc/opendkim.private
-COPY assets/opendkim.trusted /etc/opendkim.trusted
+# Copy certificates
+COPY /etc/ssl/certs/vanhack.crt /etc/ssl/certs/vanhack.crt
+COPY /etc/ssl/private/vanhack.key /etc/ssl/private/vanhack.key
+COPY /etc/ssl/certs/intermediate-vanhack.crt /etc/ssl/certs/intermediate-vanhack.crt
+
+# Configure Postfix
+COPY assets/main.cf /etc/postfix/virtual_addresses
+run postmap /etc/postfix/virtual_addresses
 COPY assets/custom_replies /etc/postfix/custom_replies
 COPY assets/virtual_addresses /etc/postfix/virtual_addresses
+
+# Configure OpenDKIM
+COPY opendkim.private /etc/opendkim.private
+COPY assets/opendkim.trusted /etc/opendkim.trusted
 run chmod 600 /etc/opendkim.private
-run postconf -e "home_mailbox = Maildir/"
-run postmap /etc/postfix/virtual_addresses
-run postconf -e "virtual_maps = hash:/etc/postfix/virtual_addresses"
-run postconf -e "milter_default_action = accept"
-run postconf -e "smtpd_milters = inet:127.0.0.1:8891"
-run postconf -e "non_smtpd_milters = inet:127.0.0.1:8891"
-run postconf -e "mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 172.16.0.0/12"
-run postconf -e "smtpd_recipient_restrictions = check_recipient_access regexp:/etc/postfix/custom_replies"
-run postconf -e "myhostname = talk.vanhack.ca"
-run postconf -e "mydomain = talk.vanhack.ca"
-run postconf -e "myorigin = talk.vanhack.ca"
-run postconf -e "mydestination = talk.vanhack.ca"
 run echo "KeyFile /etc/opendkim.private" >> /etc/opendkim.conf
 run echo "Canonicalization relaxed/relaxed" >> /etc/opendkim.conf
 run echo "InternalHosts /etc/opendkim.trusted" >> /etc/opendkim.conf
+
 run cp /etc/resolv.conf /var/spool/postfix/etc/  
 run cp /etc/services /var/spool/postfix/etc/
 
+# Courier
 COPY courier-access.txt /etc/courier/access.txt
 run makedat -src=/etc/courier/access.txt -file=/etc/courier/access.gdbm -tmp=/tmp/makedat -cidr
 
+# Aliases
 COPY aliases.txt /etc/aliases
 run newaliases
+
+# Fix saslauthd permissions
+run chmod --reference=/var/run/saslauthd /var/spool/postfix/var/run/saslauthd
+
+# Ensure saslauthd start on boot
+run sed -i "s/START=no/START=yes/" /etc/default/saslauthd
 
 # Supervisor config
 COPY assets/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
