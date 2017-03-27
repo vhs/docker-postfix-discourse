@@ -24,10 +24,13 @@ run mkdir /etc/opendkim/
 # Install Supervisor
 run apt-get install -y supervisor
 
+# Install SASL
+run apt-get install -y sasl2-bin
+
 # Copy certificates
-COPY /etc/ssl/certs/vanhack.crt /etc/ssl/certs/vanhack.crt
-COPY /etc/ssl/private/vanhack.key /etc/ssl/private/vanhack.key
-COPY /etc/ssl/certs/intermediate-vanhack.crt /etc/ssl/certs/intermediate-vanhack.crt
+COPY certs/vanhack.crt /etc/ssl/certs/vanhack.crt
+COPY certs/vanhack.key /etc/ssl/private/vanhack.key
+COPY certs/intermediate-vanhack.crt /etc/ssl/certs/intermediate-vanhack.crt
 
 # Configure Postfix
 COPY assets/main.cf /etc/postfix/virtual_addresses
