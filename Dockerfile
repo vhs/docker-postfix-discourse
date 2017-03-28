@@ -13,6 +13,9 @@ run echo "postfix postfix/mailname string mail.example.com" >> preseed.txt
 run debconf-set-selections preseed.txt
 run apt-get install -q -y postfix
 
+# Copy main.cf
+COPY assets/main.cf /etc/postfix/main.cf
+
 # Install Courier
 run apt-get install -q -y courier-pop
 run mkdir -p /var/run/courier/authdaemon/
@@ -33,7 +36,7 @@ COPY certs/vanhack.key /etc/ssl/private/vanhack.key
 COPY certs/intermediate-vanhack.crt /etc/ssl/certs/intermediate-vanhack.crt
 
 # Configure Postfix
-COPY assets/main.cf /etc/postfix/virtual_addresses
+COPY assets/virtual_addresses /etc/postfix/virtual_addresses
 run postmap /etc/postfix/virtual_addresses
 COPY assets/custom_replies /etc/postfix/custom_replies
 COPY assets/virtual_addresses /etc/postfix/virtual_addresses
