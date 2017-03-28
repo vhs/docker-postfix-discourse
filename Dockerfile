@@ -69,6 +69,7 @@ run chmod --reference=/var/run/saslauthd /var/spool/postfix/var/run/saslauthd
 
 # Ensure saslauthd start on boot
 run sed -i "s/START=no/START=yes/" /etc/default/saslauthd
+run sed -i 's/OPTIONS=.*/OPTIONS="-c -m /var/spool/postfix/var/run/saslauthd"/g' /etc/default/saslauthd
 
 # Supervisor config
 COPY assets/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
