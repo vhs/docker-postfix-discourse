@@ -61,7 +61,7 @@ COPY aliases.txt /etc/aliases
 run newaliases
 
 # Fix saslauthd permissions
-run mdir -p /var/run/saslauthd
+run mkdir -p /var/run/saslauthd
 run mkdir -p /var/spool/postfix/var/run/saslauthd
 run chown root:sasl /var/run/saslauthd
 run chmod 710 /var/run/saslauthd
