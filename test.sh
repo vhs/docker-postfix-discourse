@@ -23,8 +23,8 @@ docker run -i -t \
     -e "SES_HOST=$SES_HOST" \
     -e "SES_USER=$SES_USER" \
     -e "SES_PASS=$SES_PASS" \
-    -p 110:110 \
-    -p 25:25 \
+    -p 10110:110 \
+    -p 10025:25 \
     -v $DIR/log:/var/log/supervisor \
     -v $DIR/mail:/var/mail \
     -v $DIR/home:/home \
