@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --force-rm -t vanhack/discourse_mail .
+docker build -t vanhack/discourse_mail .
