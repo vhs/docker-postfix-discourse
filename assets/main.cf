@@ -32,8 +32,6 @@ inet_protocols = all
 home_mailbox = Maildir/
 virtual_maps = hash:/etc/postfix/virtual_addresses
 milter_default_action = accept
-###smtpd_milters = inet:127.0.0.1:8891
-###non_smtpd_milters = inet:127.0.0.1:8891
 smtpd_recipient_restrictions=permit_sasl_authenticated,permit_mynetworks,reject_unauth_destination,check_recipient_access,regexp:/etc/postfix/custom_replies
 mydomain = talk.vanhack.ca
 
