@@ -7,7 +7,10 @@ RUN echo mail > /etc/hostname
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install Postfix.
+# Install rsyslog
+RUN apt-get install -q -y rsyslog
+
+# Install Postfix
 RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt
 RUN echo "postfix postfix/mailname string mail.example.com" >> preseed.txt
 RUN debconf-set-selections preseed.txt
@@ -19,10 +22,6 @@ COPY assets/main.cf /etc/postfix/main.cf
 # Install Courier
 RUN apt-get install -q -y courier-pop
 RUN mkdir -p /var/run/courier/authdaemon/
-
-# Install Opendkim
-RUN apt-get install -q -y opendkim
-RUN mkdir /etc/opendkim/
 
 # Install Supervisor
 RUN apt-get install -y supervisor
@@ -36,14 +35,7 @@ RUN postmap /etc/postfix/virtual_addresses
 COPY assets/custom_replies /etc/postfix/custom_replies
 COPY assets/virtual_addresses /etc/postfix/virtual_addresses
 
-# Configure OpenDKIM
-COPY opendkim.private /etc/opendkim.private
-COPY assets/opendkim.trusted /etc/opendkim.trusted
-RUN chmod 600 /etc/opendkim.private
-RUN echo "KeyFile /etc/opendkim.private" >> /etc/opendkim.conf
-RUN echo "Canonicalization relaxed/relaxed" >> /etc/opendkim.conf
-RUN echo "InternalHosts /etc/opendkim.trusted" >> /etc/opendkim.conf
-
+# Copy system files
 RUN cp /etc/resolv.conf /var/spool/postfix/etc/  
 RUN cp /etc/services /var/spool/postfix/etc/
 
@@ -68,7 +60,11 @@ RUN sed -i 's/OPTIONS=.*/OPTIONS="-c -m \/var\/spool\/postfix\/var\/run\/saslaut
 
 # Supervisor config
 COPY assets/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Startup script
+COPY assets/bootstrap.sh /usr/local/bin/
 COPY assets/start.sh /usr/local/bin/
+COPY assets/test.sh /usr/local/bin/
 
 EXPOSE 110 25
 

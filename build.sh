@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t hackspace/discourse_mail .
+docker build --force-rm -t vanhack/discourse_mail .
