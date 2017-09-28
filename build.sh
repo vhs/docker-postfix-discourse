@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t hackspace/discourse_mail .
+docker build -t vanhack/discourse_mail .
