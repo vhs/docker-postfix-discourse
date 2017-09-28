@@ -11,10 +11,10 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get install -q -y rsyslog
 
 # Install Postfix
-RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt
-RUN echo "postfix postfix/mailname string mail.example.com" >> preseed.txt
-RUN debconf-set-selections preseed.txt
-RUN apt-get install -q -y postfix
+RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt &&\
+    echo "postfix postfix/mailname string mail.example.com" >> preseed.txt &&\
+    debconf-set-selections preseed.txt &&\
+    apt-get install -q -y postfix
 
 # Copy main.cf
 COPY assets/main.cf /etc/postfix/main.cf
