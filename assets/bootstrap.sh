@@ -17,10 +17,10 @@ mkdir -p /home/discourse/Maildir/cur
 chown -R discourse:discourse /home/discourse
 
 # Set SASL SMTP
-echo "[$SMTP_HOST]:587 $SMTP_USER:$SMTP_PASS" > /etc/postfix/sasl_passwd
+echo "[$SMTP_HOST]:$SMTP_PORT $SMTP_USER:$SMTP_PASS" > /etc/postfix/sasl_passwd
 chmod 600 /etc/postfix/sasl_passwd
 postmap hash:/etc/postfix/sasl_passwd
-postconf -e "relayhost = [$SMTP_HOST]:587"
+postconf -e "relayhost = [$SMTP_HOST]:$SMTP_PORT"
 
 postconf compatibility_level=2
 

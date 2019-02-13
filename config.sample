@@ -5,3 +5,4 @@ DKIM_SELECTOR=default #DKIM Selector
 SMTP_HOST=smarthost
 SMTP_USER=example
 SMTP_PASS=password
+SMTP_PORT=587
