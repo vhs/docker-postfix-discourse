@@ -17,6 +17,6 @@ This will download and build the image to run, if you make any changes then re-r
 ## Starting
 
 ```
-./start.sh <password>
+./start.sh
 ```
-This will create an instance and run it. The password is for the discourse account used for pop3 access. 
+This will create an instance and run it. The password is injected via environment variables.
