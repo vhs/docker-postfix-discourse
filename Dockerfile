@@ -20,7 +20,7 @@ RUN echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt &
 COPY assets/main.cf /etc/postfix/main.cf
 
 # Install Courier
-RUN apt-get install -q -y courier-pop
+RUN touch /usr/share/man/man5/maildir.courier.5.gz /usr/share/man/man7/maildirquota.courier.7.gz && apt-get install -q -y courier-pop
 RUN mkdir -p /var/run/courier/authdaemon/
 
 # Install Supervisor
@@ -30,10 +30,9 @@ RUN apt-get install -y supervisor
 RUN apt-get install -y sasl2-bin
 
 # Configure Postfix
-COPY assets/virtual_addresses /etc/postfix/virtual_addresses
-RUN postmap /etc/postfix/virtual_addresses
 COPY assets/custom_replies /etc/postfix/custom_replies
 COPY assets/virtual_addresses /etc/postfix/virtual_addresses
+RUN postmap /etc/postfix/virtual_addresses
 
 # Copy system files
 RUN cp /etc/resolv.conf /var/spool/postfix/etc/  
@@ -63,11 +62,11 @@ COPY assets/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Startup script
 COPY assets/bootstrap.sh /usr/local/bin/
-COPY assets/start.sh /usr/local/bin/
-COPY assets/test.sh /usr/local/bin/
+COPY assets/docker-entrypoint.sh /docker-entrypoint.sh
 
-EXPOSE 110 25
+EXPOSE 25 110 
 
 VOLUME ["/var/mail", "/home/"]
 
-CMD ["/usr/local/bin/start.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["/usr/bin/supervisord"]

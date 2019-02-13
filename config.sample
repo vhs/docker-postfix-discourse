@@ -2,6 +2,6 @@
 POP3_PASS=somepass #Password to use for the discourse user/pop3 account
 DOMAIN=talk.vanhack.ca #Primary domain
 DKIM_SELECTOR=default #DKIM Selector
-SES_HOST=smarthost
-SES_USER=example
-SES_PASS=password
+SMTP_HOST=smarthost
+SMTP_USER=example
+SMTP_PASS=password
