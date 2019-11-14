@@ -5,4 +5,4 @@ if [ ! -e assets/virtual_addresses ] ; then
  exit
 fi
 
-docker build -t vanhack/discourse_mail .
+docker-compose build

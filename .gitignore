@@ -1,4 +1,7 @@
-log/
-home/
+log/**
+home/**
+mail/**
+secrets/**
 opendkim.private
 config
+assets/virtual_addresses

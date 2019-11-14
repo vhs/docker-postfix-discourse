@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  discourse_mail:
+    container_name: ${CONTAINER_NAME:-discourse_mail}
+    build: .
+    network_mode: bridge
+    restart: always
+    secrets:
+    - POP3_PASS
+    - SMTP_PORT
+    - DOMAIN
+    - SMTP_PASS
+    - SMTP_USER
+    - SMTP_HOST
+    - DKIM_SELECTOR
+    volumes:
+    - ./log:/var/log/supervisor
+    - ./mail:/var/mail
+    - ./home:/home
+    - /etc/letsencrypt:/etc/letsencrypt
+    - /var/lib/letsencrypt:/var/lib/letsencrypt
+    ports:
+    - ${PUBLIC_SMTP_PORT:-25}:25/tcp
+
+secrets:
+  POP3_PASS:
+    file: ./secrets/POP3_PASS
+  SMTP_PORT:
+    file: ./secrets/SMTP_PORT
+  DOMAIN:
+    file: ./secrets/DOMAIN
+  SMTP_PASS:
+    file: ./secrets/SMTP_PASS
+  SMTP_USER:
+    file: ./secrets/SMTP_USER
+  SMTP_HOST:
+    file: ./secrets/SMTP_HOST
+  DKIM_SELECTOR:
+    file: ./secrets/DKIM_SELECTOR
