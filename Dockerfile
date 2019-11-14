@@ -1,5 +1,5 @@
 FROM ubuntu
-MAINTAINER Garth Cumming
+MAINTAINER ops@vanhack.ca
 
 RUN apt-get update
 

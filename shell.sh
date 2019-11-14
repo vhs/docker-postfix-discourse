@@ -1,7 +1,5 @@
 #!/bin/bash
 
-CONTAINER="discourse_mail"
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 if [ ! -e $DIR/config ]; then
@@ -12,4 +10,4 @@ fi
 source $DIR/config
 
 echo "Starting shell..."
-docker exec -it "$CONTAINER" /bin/bash
+docker-compose exec discourse_mail /bin/bash
