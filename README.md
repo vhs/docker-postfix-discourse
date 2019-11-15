@@ -1,22 +1,36 @@
 # talk.vanhack.ca Postfix Docker image
 
-This is a Dockerfile for a basic postfix/courier server. Currently it's just for incoming emails and just has a single mailbox.
+This is a Docker setup for a basic postfix/courier server. Currently limited to handling outgoing and incoming emails and one mailbox.
+
+## Requirements
+
+- Docker (18.x or higher)
+- Docker Compose
+ 
+## Configuration
+
+Configure via `config` file from `config.sample` to generate secrets.
 
 ## Setup
-
-Generate your DKIM key and place the private in ./opendkim.private
-
-Assuming docker is installed:
 
 ```
 ./build.sh
 ```
-
-This will download and build the image to run, if you make any changes then re-run.
 
 ## Starting
 
 ```
 ./start.sh
 ```
-This will create an instance and run it. The password is injected via environment variables.
+
+## Shell
+
+```
+./shell.sh
+```
+
+## Testing
+
+```
+./test.sh
+```
