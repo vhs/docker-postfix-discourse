@@ -13,14 +13,15 @@ services:
     - SMTP_USER
     - SMTP_HOST
     - DKIM_SELECTOR
+    - CERT_KEY
+    - CERT_CHAIN
+    - CERT_CRT
     volumes:
     - ./log:/var/log/supervisor
     - ./mail:/var/mail
     - ./home:/home
-    - /etc/letsencrypt:/etc/letsencrypt
-    - /var/lib/letsencrypt:/var/lib/letsencrypt
     ports:
-    - ${PUBLIC_SMTP_PORT:-25}:25/tcp
+    - ${PUBLIC_SMTP_PORT:-25}:25
 
 secrets:
   POP3_PASS:
@@ -37,3 +38,9 @@ secrets:
     file: ./secrets/SMTP_HOST
   DKIM_SELECTOR:
     file: ./secrets/DKIM_SELECTOR
+  CERT_KEY:
+    file: ./secrets/CERT_KEY
+  CERT_CHAIN:
+    file: ./secrets/CERT_CHAIN
+  CERT_CRT:
+    file: ./secrets/CERT_CRT

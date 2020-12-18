@@ -1,5 +1,5 @@
 FROM ubuntu
-MAINTAINER ops@vanhack.ca
+LABEL maintainers="ops@vanhack.ca"
 
 RUN apt-get update
 
